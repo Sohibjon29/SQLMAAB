@@ -87,7 +87,7 @@ FROM
 FROM
 (SELECT CONCAT(MIN(years), '-', MAX(years)) as all_years
 FROM
-(SELECT *, SUM(prod) OVER(ORDER BY years) as sum
+(SELECT *, SUM(prod) OVER(ORDER BY years DESC) as sum
 FROM 
 (SELECT *,
 CASE WHEN num*num1=1 THEN 0
@@ -96,12 +96,12 @@ END as prod
 FROM
 (SELECT *, LEAD(num) OVER(ORDER BY years) as num1
 FROM
-(SELECT ordinal+1971 as years, CASE 
-WHEN ordinal+1971 IN (
+(SELECT ordinal+1974 as years, CASE 
+WHEN ordinal+1974 IN (
 SELECT YEAR(HIRE_DATE)
 FROM EMPLOYEES_N) THEN 1
 ELSE -1
 END as num
-FROM string_split(REPLICATE('.',25),'.',1)) as t1) as t2) as t3) as t4
+FROM string_split(REPLICATE('.',50),'.',1)) as t1) as t2) as t3) as t4
 GROUP BY sum) as t5) as t6
 WHERE row_num%2=0
